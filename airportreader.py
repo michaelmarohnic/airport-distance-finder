@@ -15,6 +15,7 @@ distance_from_lon = 0
 found_airports = []
 num_of = 0
 
+#function to calculate distance between two sets of coordinates, then convert to nautical miles
 def calculate_distance(x,y):
     lat1 = radians(distance_from_lat)
     lon1 = radians(distance_from_lon)
@@ -46,9 +47,10 @@ for a in d:
             found_airports.append(d[a])
             num_of += 1
 
+#sort list by distance from origin
 found_airports = sorted(found_airports, key=lambda airport: airport["distance_from_nm"])
 
-#export found airports
+#export found airports to file
 if search_state:
     filename = search_state + '_airports.json'
 else:
@@ -56,6 +58,7 @@ else:
 with open(filename,'w') as new_file:
     json.dump(found_airports, new_file, indent=2)
 
+#print results to console
 if (print_all):
     for a in found_airports:
         print(a["icao"], "-", a["name"], "-", a["distance_from_nm"], "nm miles from", distance_from)
